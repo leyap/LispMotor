@@ -8,5 +8,5 @@
 LispMotor car (2,4,7,8,3,5);
 car.exchangeDir(left, right);
 car.control(left_speed, right_speed);
-brake();
+car.brake();
 ````

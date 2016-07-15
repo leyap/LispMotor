@@ -23,6 +23,7 @@ class LispMotor {
 		LispMotor(uint8_t left1, uint8_t left2, uint8_t right1, uint8_t right2, uint8_t left_en, uint8_t right_en);
 		void exchangeDir(bool left, bool right);
 		void control(int16_t left, int16_t right);
+		void control(int8_t leftDir, uint8_t left, int8_t rightDir, uint8_t right);
 		void brake ();
 
 };

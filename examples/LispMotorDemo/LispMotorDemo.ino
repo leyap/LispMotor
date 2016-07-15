@@ -14,7 +14,7 @@ void setup () {
 }
 
 void loop () {
-	motor.control(50, 0);
+	motor.control(1, 50, 2, 0);
 	delay (2000);
 	motor.control(50, 50);
 	delay (2000);

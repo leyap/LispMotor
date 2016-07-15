@@ -4,6 +4,9 @@
 // Copyright (c) 2016 Lisper.li
 // MIT License(索性将其开源出来)
 
+// dir == true is cw else dir == false is ccw
+// leftDir == 1 is cw else leftDir == 2 is ccw
+
 #include <Arduino.h>
 #include "LispMotor.h"
 
@@ -43,14 +46,14 @@ void LispMotor::exchangeDir (bool left, bool right) {
 void LispMotor::control (int16_t left, int16_t right) {
 	if (left < 0) {
 		left = -left;
-		if (_left_dir == false) {
-			_left_dir = true;
+		if (_left_dir == true) {
+			_left_dir = false;
 			digitalWrite (_left1, HIGH);
 			digitalWrite (_left2, LOW);
 		}
 	} else {
-		if (_left_dir == true) {
-			_left_dir = false;
+		if (_left_dir == false) {
+			_left_dir = true;
 			digitalWrite (_left1, LOW);
 			digitalWrite (_left2, HIGH);
 		}
@@ -58,14 +61,14 @@ void LispMotor::control (int16_t left, int16_t right) {
 
 	if (right < 0) {
 		right = -right;
-		if (_right_dir == false) {
-			_right_dir = true;
+		if (_right_dir == true) {
+			_right_dir = false;
 			digitalWrite (_right1, HIGH);
 			digitalWrite (_right2, LOW);
 		}
 	} else {
-		if (_right_dir == true) {
-			_right_dir = false;
+		if (_right_dir == false) {
+			_right_dir = true;
 			digitalWrite (_right1, LOW);
 			digitalWrite (_right2, HIGH);
 		}
@@ -73,6 +76,39 @@ void LispMotor::control (int16_t left, int16_t right) {
 
 	//if (left > 255) left = 255;
 	//if (right > 255) right = 255;
+
+	analogWrite (_left_en, left);
+	analogWrite (_right_en, right);
+}
+
+void LispMotor::control (int8_t leftDir, uint8_t left, int8_t rightDir, uint8_t right) {
+	if (leftDir == 2) {
+		if (_left_dir == true) {
+			_left_dir = false;
+			digitalWrite (_left1, HIGH);
+			digitalWrite (_left2, LOW);
+		} 
+	} else if (leftDir == 1) {
+		if (_left_dir == false) {
+			_left_dir = true;
+			digitalWrite (_left1, LOW);
+			digitalWrite (_left2, HIGH);
+		}
+	}
+
+	if (rightDir == 2) {
+		if (_right_dir == true) {
+			_right_dir = false;
+			digitalWrite (_right1, HIGH);
+			digitalWrite (_right2, LOW);
+		}
+	} else if (rightDir == 1) {
+		if (_right_dir == false) {
+			_right_dir = true;
+			digitalWrite (_right1, LOW);
+			digitalWrite (_right2, HIGH);
+		}
+	}
 
 	analogWrite (_left_en, left);
 	analogWrite (_right_en, right);
